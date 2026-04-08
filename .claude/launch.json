@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Static Site Preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8080", "--directory", "/Users/hnxnq712/Downloads/MMAI/rachel-repo"],
+      "port": 8080
+    }
+  ]
+}
