@@ -2,6 +2,8 @@
 
 **Rachel Li** · MAS.S60 / 6.S985
 
+**Notebook:** [Rachel_Li_mmai_HW1.ipynb](./Rachel_Li_mmai_HW1.ipynb)
+
 ---
 
-*Content coming soon — will be updated with homework results and writeup.*
+Exploration of a multimodal dataset as part of the Multimodal AI course at MIT.
