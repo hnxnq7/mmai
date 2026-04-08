@@ -4,7 +4,7 @@
 ---
 
 ## About Me
-**[Visit my course site →](https://hnxnq7.github.io/mmai/)**
+**[My course site →](https://hnxnq7.github.io/mmai/)**
 
 Hi, I'm Rachel! I'm an MIT student interested in the intersection of neuroscience and AI — specifically, how we can build systems that decode and reconstruct human perception from brain signals. This repo is my living lab notebook for the Multimodal AI course, tracking ideas, experiments, and results across the semester.
 
