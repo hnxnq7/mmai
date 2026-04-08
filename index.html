@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rachel Li — Multimodal AI 2026</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #5b21b6;
+      --primary-light: #ede9fe;
+      --accent: #7c3aed;
+      --text: #1e1b4b;
+      --muted: #6b7280;
+      --card-bg: #ffffff;
+      --bg: #f5f3ff;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); }
+
+    /* HERO */
+    .hero-custom {
+      background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 60%, #7c3aed 100%);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      color: white;
+    }
+    .hero-custom h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .hero-custom .subtitle { font-size: 1.1rem; opacity: 0.85; margin-bottom: 1.5rem; }
+    .hero-links a {
+      display: inline-block;
+      margin: 0.3rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      color: white;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .hero-links a:hover { background: rgba(255,255,255,0.15); }
+
+    /* SECTIONS */
+    .section-custom { padding: 3rem 1.5rem; max-width: 900px; margin: 0 auto; }
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      border-left: 4px solid var(--accent);
+      padding-left: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* CARDS */
+    .card-custom {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(91,33,182,0.08);
+      margin-bottom: 1.25rem;
+    }
+    .card-custom h3 { font-weight: 600; font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .card-custom p, .card-custom li { color: var(--muted); font-size: 0.93rem; line-height: 1.6; }
+    .tag-custom {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      margin: 0.2rem;
+    }
+
+    /* RESULTS TABLE */
+    .results-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 1rem; }
+    .results-table th {
+      background: var(--primary);
+      color: white;
+      padding: 0.6rem 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .results-table td { padding: 0.55rem 1rem; border-bottom: 1px solid #ede9fe; }
+    .results-table tr:hover td { background: var(--primary-light); }
+    .results-table .chance td { color: var(--muted); font-style: italic; }
+    .badge-good { color: #059669; font-weight: 600; }
+    .badge-best { color: var(--accent); font-weight: 700; }
+
+    /* RUN POSITION */
+    .runpos-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .runpos-cell {
+      background: var(--primary-light);
+      border-radius: 8px;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+    }
+    .runpos-cell .pos-label { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.2rem; }
+    .runpos-cell .pos-val { font-size: 1rem; font-weight: 700; color: var(--accent); }
+    .flat-badge {
+      display: inline-block;
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 999px;
+      padding: 0.25rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 0.75rem;
+    }
+
+    /* NEXT STEPS */
+    .idea-card {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.25rem;
+      background: white;
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 6px rgba(91,33,182,0.06);
+    }
+    .idea-card h4 { font-weight: 600; font-size: 0.97rem; color: var(--primary); margin-bottom: 0.3rem; }
+    .idea-card p { font-size: 0.88rem; color: var(--muted); }
+
+    /* HOMEWORK */
+    .hw-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 0.6rem;
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: 0 1px 6px rgba(91,33,182,0.06);
+      transition: box-shadow 0.2s;
+    }
+    .hw-link:hover { box-shadow: 0 4px 16px rgba(91,33,182,0.14); color: var(--accent); }
+    .hw-link .hw-num {
+      background: var(--primary-light);
+      color: var(--accent);
+      border-radius: 8px;
+      padding: 0.3rem 0.7rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      min-width: 40px;
+      text-align: center;
+    }
+    .hw-link .hw-coming { color: var(--muted); font-size: 0.82rem; margin-left: auto; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-top: 1px solid #ede9fe;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero-custom">
+  <h1>Rachel Li</h1>
+  <p class="subtitle">MAS.S60 / 6.S985 &mdash; Multimodal AI 2026 &middot; MIT</p>
+  <div class="hero-links">
+    <a href="mailto:lirachel@mit.edu"><i class="fas fa-envelope"></i> lirachel@mit.edu</a>
+    <a href="https://github.com/hnxnq7" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a href="https://github.com/winstonqian/EEG2Video" target="_blank"><i class="fas fa-brain"></i> Team Repo</a>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section-custom">
+  <div class="section-title">About Me</div>
+  <div class="card-custom">
+    <p>
+      Hi, I'm Rachel! I'm an MIT student interested in the intersection of neuroscience and AI —
+      specifically, how we can build systems that decode and reconstruct human perception from brain signals.
+      This is my living lab notebook for the Multimodal AI course, tracking ideas, experiments, and results
+      across the semester.
+    </p>
+    <br/>
+    <div>
+      <span class="tag-custom">EEG Decoding</span>
+      <span class="tag-custom">Brain-Computer Interfaces</span>
+      <span class="tag-custom">Multimodal AI</span>
+      <span class="tag-custom">Contrastive Learning</span>
+      <span class="tag-custom">Neuroscience</span>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL PROJECT -->
+<div class="section-custom">
+  <div class="section-title">Final Project</div>
+  <div class="card-custom">
+    <h3>Vision vs. Protocol Effects in EEG2Video:<br/>Baseline Audit and Temporal Alignment on SEED-DV</h3>
+    <p style="margin: 0.5rem 0 0.75rem;">
+      <em>with Emma Wang and Winston Qian</em> &nbsp;&middot;&nbsp;
+      <a href="https://github.com/winstonqian/EEG2Video" target="_blank" style="color: var(--accent);">
+        <i class="fab fa-github"></i> Team Repo
+      </a>
+      &nbsp;&middot;&nbsp;
+      <a href="./project/" style="color: var(--accent);">
+        <i class="fas fa-file-alt"></i> Project README
+      </a>
+    </p>
+    <p>
+      EEG-to-video decoding benchmarks like SEED-DV risk confounding genuine visual perception
+      with protocol-induced cognitive artifacts. We audit the EEG2Video framework for run-position
+      artifacts and data leakage, then propose chunk-level latency-aware contrastive alignment
+      to enforce genuine dynamic tracking.
+    </p>
+  </div>
+
+  <!-- RESULTS TABLE -->
+  <div class="card-custom">
+    <h3>Midterm Baseline Results — 40-Class Concept Classification</h3>
+    <table class="results-table">
+      <thead>
+        <tr><th>Condition</th><th>Top-1 (%)</th><th>Top-5 (%)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>DE (our reproduction)</td><td class="badge-good">4.37 ± 2.64</td><td>17.17 ± 5.44</td></tr>
+        <tr><td>DE_no_data_leak</td><td>4.09 ± 2.62</td><td>16.84 ± 5.19</td></tr>
+        <tr><td>PSD</td><td>4.15 ± 2.60</td><td>17.15 ± 4.89</td></tr>
+        <tr><td>Raw EEG</td><td>3.79 ± 1.56</td><td>15.79 ± 3.54</td></tr>
+        <tr style="border-top: 2px solid #ede9fe;">
+          <td>GLMNet — Liu et al. 2024 (best)</td><td class="badge-best">6.20</td><td class="badge-best">17.75</td>
+        </tr>
+        <tr class="chance"><td>Chance (1/40)</td><td>2.50</td><td>12.50</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RUN POSITION -->
+  <div class="card-custom">
+    <h3>Sequence Shortcut Audit — Accuracy by Clip Position</h3>
+    <p style="font-size:0.88rem; color: var(--muted); margin-bottom: 0.5rem;">
+      If the model exploited run-position cues (anticipation/adaptation), accuracy would trend monotonically
+      with clip index k ∈ {1,...,5}. Both DE and PSD show flat profiles — no shortcut artifact.
+    </p>
+
+    <p style="font-size: 0.85rem; font-weight: 600; margin: 1rem 0 0.4rem;">DE Features</p>
+    <div class="runpos-grid">
+      <div class="runpos-cell"><div class="pos-label">Clip 1</div><div class="pos-val">4.40%</div></div>
+      <div class="runpos-cell"><div class="pos-label">Clip 2</div><div class="pos-val">4.29%</div></div>
+      <div class="runpos-cell"><div class="pos-label">Clip 3</div><div class="pos-val">4.48%</div></div>
+      <div class="runpos-cell"><div class="pos-label">Clip 4</div><div class="pos-val">4.38%</div></div>
+      <div class="runpos-cell"><div class="pos-label">Clip 5</div><div class="pos-val">4.10%</div></div>
+    </div>
+
+    <p style="font-size: 0.85rem; font-weight: 600; margin: 1rem 0 0.4rem;">PSD Features</p>
+    <div class="runpos-grid">
+      <div class="runpos-cell"><div class="pos-label">Clip 1</div><div class="pos-val">3.84%</div></div>
+      <div class="runpos-cell"><div class="pos-label">Clip 2</div><div class="pos-val">4.39%</div></div>
+      <div class="runpos-cell"><div class="pos-label">Clip 3</div><div class="pos-val">4.29%</div></div>
+      <div class="runpos-cell"><div class="pos-label">Clip 4</div><div class="pos-val">4.13%</div></div>
+      <div class="runpos-cell"><div class="pos-label">Clip 5</div><div class="pos-val">4.31%</div></div>
+    </div>
+    <div><span class="flat-badge">&#10003; No monotonic trend &mdash; baseline does not exploit sequential shortcuts</span></div>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="card-custom">
+    <h3>Next Steps — Final Report</h3>
+    <div class="idea-card">
+      <h4>Idea 2: Task-Aware Temporal Attention Pooling</h4>
+      <p>Replace mean pooling with per-task attention heads (concept / color / motion) to reveal
+      which EEG timepoints within the 2-second window drive each decoding task. O(T) complexity
+      — avoids the O(T²) self-attention bottleneck we hit with raw EEG.</p>
+    </div>
+    <div class="idea-card">
+      <h4>Idea 3: Chunk-Level Temporal EEG–Video Contrastive Alignment</h4>
+      <p>Partition each 2-second clip into K=4 chunks. Align EEG chunks to frozen VideoMAE video
+      embeddings with a learned biological latency shift δ ∈ {0,1,2} steps (~0–250ms).
+      Evaluated via within-video chunk retrieval (Recall@1, Recall@5).</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOMEWORK -->
+<div class="section-custom">
+  <div class="section-title">Homework</div>
+  <a class="hw-link" href="./homework/homework-1/">
+    <span class="hw-num">HW1</span>
+    <span>Multimodal Dataset Exploration</span>
+  </a>
+  <a class="hw-link" href="#">
+    <span class="hw-num">HW2</span>
+    <span>Multimodal Fusion</span>
+    <span class="hw-coming">coming soon</span>
+  </a>
+  <a class="hw-link" href="#">
+    <span class="hw-num">HW3</span>
+    <span>Vision-Language Models</span>
+    <span class="hw-coming">coming soon</span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Rachel Li &middot; MIT MAS.S60 / 6.S985 &middot; 2026</p>
+  <p style="margin-top:0.4rem;">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0; vertical-align:middle;"
+        src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"/>
+    </a>
+    &nbsp;Licensed under CC BY-SA 4.0
+  </p>
+</footer>
+
+</body>
+</html>
