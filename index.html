@@ -278,20 +278,65 @@
     <div><span class="flat-badge">&#10003; No monotonic trend &mdash; baseline does not exploit sequential shortcuts</span></div>
   </div>
 
-  <!-- NEXT STEPS -->
+  <!-- LATA FINAL RESULTS -->
   <div class="card-custom">
-    <h3>Next Steps — Final Report</h3>
-    <div class="idea-card">
-      <h4>Idea 2: Task-Aware Temporal Attention Pooling</h4>
-      <p>Replace mean pooling with per-task attention heads (concept / color / motion) to reveal
-      which EEG timepoints within the 2-second window drive each decoding task. O(T) complexity
-      — avoids the O(T²) self-attention bottleneck we hit with raw EEG.</p>
+    <h3>Final Results — LATA: Latency-Aware Temporal Alignment</h3>
+    <p style="font-size:0.9rem; color: var(--muted); margin-bottom: 1rem;">
+      Standard EEG–video alignment assumes that time <em>t</em> in EEG corresponds to time <em>t</em>
+      in video — physically wrong, since neural responses always lag the stimulus by a biological
+      delay δ (P100 ~100ms, P300 ~300ms). LATA learns this delay end-to-end with no supervision on δ,
+      via a trainable softmax distribution over candidate delays and a latency-aware InfoNCE loss.
+    </p>
+
+    <!-- Method diagram -->
+    <div style="background: var(--bg); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; font-family: monospace; font-size: 0.82rem; color: var(--accent);">
+      EEG chunks &nbsp; [e₁] [e₂] [e₃] [e₄]<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↕δ &nbsp;&nbsp;↕δ &nbsp;&nbsp;↕δ &nbsp;&nbsp;↕δ &nbsp;&nbsp;&nbsp; ← learned latency shift w = softmax(ℓ)<br/>
+      Video chunks &nbsp;[v₁] [v₂] [v₃] [v₄] &nbsp;&nbsp; ← frozen CLIP ViT-B/32
     </div>
-    <div class="idea-card">
-      <h4>Idea 3: Chunk-Level Temporal EEG–Video Contrastive Alignment</h4>
-      <p>Partition each 2-second clip into K=4 chunks. Align EEG chunks to frozen VideoMAE video
-      embeddings with a learned biological latency shift δ ∈ {0,1,2} steps (~0–250ms).
-      Evaluated via within-video chunk retrieval (Recall@1, Recall@5).</p>
+
+    <!-- Synthetic validation -->
+    <h4 style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem;">Synthetic Validation — Delay Recovery</h4>
+    <p style="font-size:0.88rem; color:var(--muted); margin-bottom:0.75rem;">
+      LATA correctly recovers ground-truth delays in all 4 tested cases with no supervision on δ.
+    </p>
+    <table class="results-table" style="margin-bottom:1.25rem;">
+      <thead><tr><th>δ_true</th><th>Peak of learned w</th><th>Correct?</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td class="badge-good">✓</td></tr>
+        <tr><td>1</td><td>1</td><td class="badge-good">✓</td></tr>
+        <tr><td>2</td><td>2</td><td class="badge-good">✓</td></tr>
+        <tr><td>3</td><td>3</td><td class="badge-good">✓</td></tr>
+      </tbody>
+    </table>
+
+    <!-- SEED-DV results -->
+    <h4 style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem;">SEED-DV Results — All 20 Subjects</h4>
+    <p style="font-size:0.88rem; color:var(--muted); margin-bottom:0.75rem;">
+      Population mean E[δ] = <strong>1.58 ± 0.05 chunks ≈ 790ms</strong> post-stimulus.
+      Consistent with late positive ERP components (P300, N400).
+    </p>
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+      <div class="runpos-cell" style="background:#d1fae5;">
+        <div class="pos-label">δ* = 2 (~810ms)</div>
+        <div class="pos-val" style="color:#065f46; font-size:1.4rem;">14/20</div>
+        <div class="pos-label">70% of subjects</div>
+      </div>
+      <div class="runpos-cell">
+        <div class="pos-label">δ* = 1 (~500ms)</div>
+        <div class="pos-val" style="font-size:1.4rem;">6/20</div>
+        <div class="pos-label">30% of subjects</div>
+      </div>
+      <div class="runpos-cell" style="background:#fef9c3;">
+        <div class="pos-label">δ* = 0 or 3</div>
+        <div class="pos-val" style="color:#92400e; font-size:1.4rem;">0/20</div>
+        <div class="pos-label">biologically implausible</div>
+      </div>
+    </div>
+    <div>
+      <span class="flat-badge" style="background:#dbeafe; color:#1e40af;">
+        ✓ Inter-subject SD = 25ms — population-level biological signal, not noise
+      </span>
     </div>
   </div>
 </div>
@@ -310,6 +355,14 @@
   <a class="hw-link" href="https://github.com/hnxnq7/mmai/blob/main/homework/homework-3/Rachel_Li_Homework_3_Multimodal_LLMs.ipynb" target="_blank">
     <span class="hw-num">HW3</span>
     <span>Multimodal LLMs</span>
+  </a>
+  <a class="hw-link" href="https://github.com/hnxnq7/mmai/tree/main/homework/homework-4" target="_blank">
+    <span class="hw-num">HW4</span>
+    <span>Reinforcement Learning for Vision-Language Models (GRPO)</span>
+  </a>
+  <a class="hw-link" href="https://github.com/hnxnq7/mmai/tree/main/homework/homework-5" target="_blank">
+    <span class="hw-num">HW5</span>
+    <span>AI Agents — Research Paper Agent</span>
   </a>
 </div>
 
