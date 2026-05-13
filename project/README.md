@@ -1,5 +1,5 @@
 # Vision vs. Protocol Effects in EEG2Video
-## Baseline Audit and Temporal Alignment on SEED-DV
+## Baseline Audit, NeuroCLIP, and Latency-Aware Temporal Alignment on SEED-DV
 
 **Rachel Li, Emma Wang, Winston Qian** — MIT · MAS.S60 / 6.S985
 
@@ -13,7 +13,7 @@ EEG-to-video decoding benchmarks like SEED-DV risk confounding genuine visual pe
 
 This project:
 1. **Audits** the EEG2Video baseline for data leakage and run-position shortcuts
-2. **Establishes** a clean, artifact-free within-subject classification baseline
+2. **Builds NeuroCLIP** — a zero-shot EEG-to-video retrieval system revealing that action semantics, not CLIP geometry, governs concept decodability
 3. **Proposes and validates LATA** — a chunk-level latency-aware EEG–video contrastive alignment module
 
 ---
@@ -43,6 +43,31 @@ This project:
 **Run-position audit:** No monotonic trend in accuracy across clip positions k ∈ {1,...,5} (range < 0.55 pp for both DE and PSD) → the baseline does **not** exploit run-position shortcuts. Models decode clip-level content, not temporal anticipation.
 
 **Data leakage:** The original pipeline normalizes globally across train/test splits. After fixing to within-split normalization: PSD shows 13× variance reduction; accuracy gaps are small → benchmark not fatally compromised, but corrected conditions required for fair comparison.
+
+---
+
+## Final Results — NeuroCLIP: Zero-Shot EEG-to-Video Retrieval
+
+NeuroCLIP aligns EEG representations to frozen CLIP embeddings via contrastive learning, enabling zero-shot concept retrieval — no concept labels at test time.
+
+### Key Results
+
+| Condition | Top-1 R@1 (%) | Note |
+|---|---|---|
+| **NeuroCLIP (zero-shot)** | **4.60 ± 2.70** | No labels at test time |
+| DE supervised baseline | 4.37 ± 2.64 | Fully supervised |
+| Activity concepts | **6.8** | Sports, music, people |
+| Passive concepts | 3.8 | Objects, scenes |
+| Top-10 activity subset | **6.97** | +55% vs. all-40 |
+| Chance (1/40) | 2.50 | |
+
+### Main Finding: Action Semantics Governs Decodability
+
+Concept decodability is **not** explained by CLIP geometry (r = 0.036, p = 0.83, null). It is explained by **action semantic content**: concepts depicting dynamic human activity decode ~80% better than passive object scenes (t = 6.72, p < 10⁻⁷), consistently across all 7 sessions.
+
+**Practical implication:** selecting 10 activity-rich concepts instead of all 40 yields +55% relative improvement in retrieval accuracy — a dataset-agnostic design principle for EEG-BCI stimulus sets.
+
+Full code and 47 analysis figures: [winstonqian/mmai — final-project](https://github.com/winstonqian/mmai/tree/master/final-project)
 
 ---
 
